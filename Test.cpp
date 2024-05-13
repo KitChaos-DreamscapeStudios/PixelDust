@@ -51,7 +51,7 @@ int main()
 {
     int Iter =0;
     std::vector<Ball> Balls;
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!", sf::Style::Fullscreen);
+    sf::RenderWindow window(sf::VideoMode(200, 200), "Funny Balls", sf::Style::Fullscreen);
     for (int i=0; i<400; i++) {
            Ball newBall = Ball(500,500);
            //Ball((float)rand()/RAND_MAX*window.getSize().x,(float)rand()/RAND_MAX*window.getSize().y);
