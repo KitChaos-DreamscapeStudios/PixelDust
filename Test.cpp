@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/WindowStyle.hpp>
 #include <cstdlib>
 #include <iostream>
@@ -30,6 +31,8 @@ class Ball{
     public:
   Vector2 Position=Vector2(0,0);
   Vector2 Velocity = Vector2(0,0);  
+  sf::Color MyColor=sf::Color(255,255,255);
+  float Size = 4;
   Ball(float X, float Y){
     Position = Vector2(X,Y);
   }
@@ -39,9 +42,13 @@ int main()
     std::vector<Ball> Balls;
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!", sf::Style::Fullscreen);
     for (int i=0; i<1000; i++) {
-           Ball newBall = Ball(40,40);
-            newBall.Velocity = Vector2((float)rand()/RAND_MAX,(float)rand()/RAND_MAX);
+           Ball newBall = Ball(500,500);
+           //Ball((float)rand()/RAND_MAX*window.getSize().x,(float)rand()/RAND_MAX*window.getSize().y);
+            newBall.Velocity = Vector2((float)rand()/RAND_MAX-(float)rand()/RAND_MAX,(float)rand()/RAND_MAX-(float)rand()/RAND_MAX-(float)rand()/RAND_MAX);
+            newBall.MyColor =sf::Color((float)rand()/RAND_MAX*255,(float)rand()/RAND_MAX*255,(float)rand()/RAND_MAX*255);
+            newBall.Size = (float)rand()/RAND_MAX*14;
             Balls.emplace_back(newBall);
+            
     }
  
 
@@ -61,10 +68,10 @@ int main()
 
         window.clear();
         for (auto &ball : Balls) {
-            sf::CircleShape shape(4);
+            sf::CircleShape shape(ball.Size);
    
-
-            shape.setFillColor(sf::Color::Green);
+            
+            shape.setFillColor(ball.MyColor);
             shape.setPosition(ball.Position.x, ball.Position.y);
             ball.Position = ball.Position+ball.Velocity;
             if(ball.Position.x <0||ball.Position.x>window.getSize().x)
