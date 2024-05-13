@@ -49,9 +49,10 @@ class Ball{
 };
 int main()
 {
+    int Iter =0;
     std::vector<Ball> Balls;
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!", sf::Style::Fullscreen);
-    for (int i=0; i<150; i++) {
+    for (int i=0; i<400; i++) {
            Ball newBall = Ball(500,500);
            //Ball((float)rand()/RAND_MAX*window.getSize().x,(float)rand()/RAND_MAX*window.getSize().y);
             newBall.Velocity = Vector2(((float)rand()/RAND_MAX-(float)rand()/RAND_MAX),((float)rand()/RAND_MAX-(float)rand()/RAND_MAX));
@@ -76,8 +77,12 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
-        window.clear();
+        //Iter++;
+        //if(Iter >=10){
+             window.clear();
+             //Iter = 0;
+        //}
+       
         for (auto &ball : Balls) {
             sf::CircleShape shape(ball.Size);
    
@@ -88,14 +93,14 @@ int main()
             
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                ball.Velocity = ball.Velocity+(Vector2((sf::Mouse::getPosition(window).x-ball.Position.x),((sf::Mouse::getPosition(window).y-ball.Position.y))))*-1;
+                ball.Velocity = ball.Velocity+(Vector2((sf::Mouse::getPosition(window).x-ball.Position.x)/400,((sf::Mouse::getPosition(window).y-ball.Position.y)/400)))*-1;
             }
             if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
             {
-                ball.Velocity = ball.Velocity+ (Vector2((sf::Mouse::getPosition(window).x-ball.Position.x),((sf::Mouse::getPosition(window).y-ball.Position.y))));
+                ball.Velocity = ball.Velocity+(Vector2((sf::Mouse::getPosition(window).x-ball.Position.x)/400,((sf::Mouse::getPosition(window).y-ball.Position.y)/400)));
             }
             if(sf::Mouse::isButtonPressed(sf::Mouse::Middle)){
-                ball.Velocity = Vector2(0,0);
+                ball.Velocity = ball.Velocity/1.1f;
             }
             if(ball.Position.x+ball.Velocity.x/100 <0||ball.Position.x+ball.Velocity.x/100>window.getSize().x)
             {
@@ -113,7 +118,7 @@ int main()
             
             
 
-            ball.Position = ball.Position+ball.Velocity/100;
+            ball.Position = ball.Position+ball.Velocity;
             window.draw(shape);
             
         }
