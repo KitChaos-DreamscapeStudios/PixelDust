@@ -45,7 +45,7 @@ public:
     return newVec;
   }
   float Distance(Vector2 Other) {
-    return std::abs(x - Other.x) + std::abs(y - Other.y);
+    return std::abs(Other.x-x) + std::abs(Other.y - y);
   }
 };
 class Ball {
@@ -57,7 +57,7 @@ public:
   bool HasGravity;
   Ball(float X, float Y) { Position = Vector2(X, Y); }
 };
-const int colorOffset = 40;
+const int colorOffset = 20;
 int rand255(){
       std::random_device r;
  
@@ -71,8 +71,8 @@ int main(int argc, char *argv[]) {
     //multiple same shade
     //bounce in 3d
     //bounce = glow and fade
-  const float avoidFactor = 0.03;
-  const float matchFact = 0.05;
+  const float avoidFactor = 0.05;
+  const float matchFact = 0.03;
   const float centerFact = 0.01;
   
    
@@ -162,9 +162,9 @@ int main(int argc, char *argv[]) {
         int TotVis = 0;
         for (auto &ball2 : Balls) {
 
-          if (ball.Position.Distance(ball2.Position) < 25) {
-            closedx += (ball.Position.x - ball2.Position.x) * 20;
-            closedy += (ball.Position.y - ball2.Position.y) * 20;
+          if (ball.Position.Distance(ball2.Position) < 15) {
+            closedx += (ball.Position.x - ball2.Position.x) * 40;
+            closedy += (ball.Position.y - ball2.Position.y) * 40;
           }
           if (ball.Position.Distance(ball2.Position) < 150) {
             avgXvel += ball2.Velocity.x;
@@ -188,16 +188,16 @@ int main(int argc, char *argv[]) {
                         Vector2(closedx * avoidFactor, closedy * avoidFactor);
         // ball.Velocity = ball.Velocity + Vector2((, );
         if (ball.Position.x < 20) {
-          ball.Velocity.x += 10;
+          ball.Velocity.x += 100;
         }
         if (ball.Position.x > window.getSize().x - 20) {
-          ball.Velocity.x -= 10;
+          ball.Velocity.x -= 100;
         }
         if (ball.Position.y < 20) {
-          ball.Velocity.y += 10;
+          ball.Velocity.y += 100;
         }
         if (ball.Position.y > window.getSize().y - 20) {
-          ball.Velocity.y -= 10;
+          ball.Velocity.y -= 100;
         }
         float speed = sqrt(ball.Velocity.x * ball.Velocity.x +
                            ball.Velocity.y * ball.Velocity.y);
@@ -209,8 +209,8 @@ int main(int argc, char *argv[]) {
           ball.Velocity = Vector2((ball.Velocity.x / speed) * 4,
                                   (ball.Velocity.y / speed) * 4);
         }
-        ball.Velocity.x += ((float)rand()/RAND_MAX)*2-1.2;
-        ball.Velocity.y += ((float)rand()/RAND_MAX)*2-1.2;
+        ball.Velocity.x += ((float)rand()/RAND_MAX)*2-1;
+        ball.Velocity.y += ((float)rand()/RAND_MAX)*2-1;
         ball.Position = ball.Position + (ball.Velocity / 50);
         sf::CircleShape shape(ball.Size);
         shape.setFillColor(ball.MyColor);
