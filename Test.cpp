@@ -187,13 +187,13 @@ int main(int argc, char *argv[]) {
         ball.Velocity = ball.Velocity +
                         Vector2(closedx * avoidFactor, closedy * avoidFactor);
         // ball.Velocity = ball.Velocity + Vector2((, );
-        if (ball.Position.x < 20) {
+        if (ball.Position.x < 0) {
           ball.Velocity.x += 100;
         }
         if (ball.Position.x > window.getSize().x - 20) {
           ball.Velocity.x -= 100;
         }
-        if (ball.Position.y < 20) {
+        if (ball.Position.y < 0) {
           ball.Velocity.y += 100;
         }
         if (ball.Position.y > window.getSize().y - 20) {
